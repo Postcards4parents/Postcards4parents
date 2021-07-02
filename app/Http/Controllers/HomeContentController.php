@@ -167,7 +167,85 @@ class HomeContentController extends Controller
 
         
     }
+  
+  public function video()
+    {
 
+        $userD = $this->authData();
+        // print_r($userD);die;
+
+        $form2 = $this->form2;
+        $form1 = $this->form1;
+        
+        $filter=@$_GET['quiz'];
+        if(empty($filter)){
+            $questionStep=0;
+        }else{
+            $questionStep=$filter;
+        }
+
+        // $query = $this->query->setContentType("quiz");
+        // $entries_pre = $this->client->getEntries($query);
+        
+        $query2 = $this->query->setContentType("parentStory");
+        $entries_pre2 = $this->client->getEntries($query2);
+        
+        $query3 = $this->query->setContentType("productOffer");
+        $entries_pre3 = $this->client->getEntries($query3);
+//echo '<pre>'; print_r($entries_pre3->getItems()); exit;
+        $query4 = $this->query->setContentType("quotesParentTestimonial");
+        $entries_pre4 = $this->client->getEntries($query4);
+
+        $query5 = $this->query->setContentType("pageModule");
+        $entries_pre5 = $this->client->getEntries($query5);
+        
+         $wantLearnMsg = $this->client->getEntry('3CVjH7HC6xZLVtZHcH0ykl');
+
+        // $welcomeMsg = $this->client->getEntry('7q5JEW2ILAY2HpvXuuTZph');
+
+        // $welcomeKit = $this->client->getEntry('1bRUF3EaTV1AdVcxszz9EO');
+
+        // echo "<pre>";
+        // print_r($welcomeKit->welcomeKitPages[3]->welcomeKitContentChunks[0]);die;
+        // print_r($entries_pre2);die
+
+		$query = $this->query->setContentType("quiz");
+        $entries_pre = $this->client->getEntries($query);
+        return view('site.layout.video', compact('form2', 'form1'))
+            ->with('client', $this->client)
+            ->with('query', $this->query)
+            ->with('renderer', $this->renderer)
+            ->with('contentDynamic', $this->contentDynamic)
+            ->with('Usertype', $userD)
+            // ->with('quiz', $entries_pre[0]->quizQuestions)
+            // ->with('welcomeKitPages', $welcomeKit->welcomeKitPages)
+            ->with('quiz', $entries_pre[0]->quizQuestions)
+            ->with('productBenefit', $entries_pre2)
+            ->with('productOffer', $entries_pre3)
+            ->with('testinomials', $entries_pre4)
+          ->with('r_head', "Postcards For Parent | Video")
+            ->with('wantLearnMsg', $wantLearnMsg)
+            ;
+        //->with('userType',$this->userType);
+        
+
+        
+    }
+	public function errorHandeler(){
+		$userD = $this->authData();
+        // print_r($userD);die;
+
+        $form2 = $this->form2;
+        $form1 = $this->form1;
+        $entries_pre4 = $this->client->getEntry("45JGw1FsIVU9LyFfEfOYWa");
+		//echo "<pre>"; print_r($entries_pre4); exit;
+		return view('site.other_pages.error', compact('form2','form1'))
+		->with('client', $this->client)
+            ->with('query', $this->query)
+            ->with('renderer', $this->renderer)
+			->with('data',$entries_pre4);
+		
+	}
     public function quizQuestion()
     {
 	
@@ -1885,8 +1963,159 @@ class HomeContentController extends Controller
         $testingBypass = true;
         return $this->NewMailerCron($testingBypass);
     }
+// code for new subscribers 
+public function newSubscribers(){
+    $data = DB::table('offer_payemnt_tbl')->join('user_quiz', 'offer_payemnt_tbl.user_id', '=', 'user_quiz.user_id', 'left')
+    ->select('offer_payemnt_tbl.*', 'user_quiz.grade')->where('offer_payemnt_tbl.created_at','<','NOW() - INTERVAL 1 DAY')
+    ->where('offer_payemnt_tbl.email_sent','=',0)
+    ->groupBy('offer_payemnt_tbl.user_id')
+    ->get()->toArray();
+    
+        $query1 = $this
+                    ->query
+                    ->setContentType("additionalEmails")->where('sys.id','64EdnPdIMB1GKeCB5F30py');
+        $checkwelcomekit = $this
+                ->client
+                ->getEntries($query1)[0];
+        $query2 = $this
+                ->query
+                ->setContentType("additionalEmails")->where('sys.id','1MwLNwh5e6k5L3DVUjZmNZ');
+    $quizTake = $this
+            ->client
+            ->getEntries($query2)[0];
+                
+        $emailSubjectLine1 = $checkwelcomekit->emailSubject." ".$checkwelcomekit->emailSubhead;
+        $emailSubjectLine2 = $quizTake->emailSubject." ".$quizTake->emailSubhead;
+      
+        foreach ($data as $user)
+                {
+                    
+                    $email = $user->user_email;
+                    $name = explode(" ",$user->user_name);
+                    
+                 if($user->grade !== ''){
+                        try
+                        {
+                            Mail::send('mailer.welcomekitcheck', ["entrys" => $checkwelcomekit, 'fname' => $name[0]], function ($message) use ($user, $emailSubjectLine1)
+                            {
+
+                                $message->to($user->user_email)->subject($emailSubjectLine1);
+                            });
+                            $mail_ret[] = ['email' => $email, 'message' => 'success'];
+
+                        }
+                        catch(\Exception $e)
+                        {
+
+                            $message_err = $e->getMessage();
+                            $mail_ret[] = ['email' => $email, 'message' => 'fail', 'reason' => $message_err];
+
+                        }
+						
+	
+
+                    }else{
+                        try
+                        {
+                            Mail::send('mailer.takequiz', ["entrys" => $quizTake, 'fname' => $name[0]], function ($message) use ($user, $emailSubjectLine2)
+                            {
+
+                                $message->to($user->user_email)->subject($emailSubjectLine2);
+                            });
+                            $mail_ret[] = ['email' => $email, 'message' => 'success'];
+
+                        }
+                        catch(\Exception $e)
+                        {
+
+                            $message_err = $e->getMessage();
+                            $mail_ret[] = ['email' => $email, 'message' => 'fail', 'reason' => $message_err];
+
+                        }
+                        
+                    }
+                DB::table('offer_payemnt_tbl')
+                ->where('id', $user->id)
+                ->update(['email_sent' => 1]);
+                      
+            }
+            
+         if (!empty($mail_ret))
+            {
+                $return['success'] = $mail_ret;
+            }
+            else
+            {
+                $return['fail'] = array("User grade not allowed by mailer");
+            }
+    
+        return $return;
+    }
+//code ends here
+
+// code for new subscribers 
+public function quizTakersNew(){
+    $data = DB::table('user_quiz')->join('offer_payemnt_tbl', 'user_quiz.user_id', '=', 'offer_payemnt_tbl.user_id', 'left')
+    ->select('user_quiz.*', 'offer_payemnt_tbl.subscription_id')->where('user_quiz.created_at','<','NOW() - INTERVAL 1 DAY')
+    ->where('user_quiz.email_sent','=',0)
+    ->groupBy('user_quiz.user_email')
+    ->get()->toArray();
+        
+        $query1 = $this
+                    ->query
+                    ->setContentType("additionalEmails")->where('sys.id','7HRkgbAl1EAME7PqukoRUW');
+        $checkwelcomekit = $this
+                ->client
+                ->getEntries($query1)[0];
+        $emailSubjectLine1 = $checkwelcomekit->emailSubject." ".$checkwelcomekit->emailSubhead;
+       
+        foreach ($data as $user)
+                {
+                    $name = explode(" ",$user->user_name);
+                    $email = $user->user_email;
+                    if($user->subscription_id == ''){
+                        try
+                        {
+                            Mail::send('mailer.notsubscribeduser', ["entrys" => $checkwelcomekit, 'fname' => $name[0]], function ($message) use ($user, $emailSubjectLine1)
+                            {
+
+                                $message->to($user->user_email)->subject($emailSubjectLine1);
+                            });
+                            $mail_ret[] = ['email' => $email, 'message' => 'success'];
+
+                        }
+                        catch(\Exception $e)
+                        {
+
+                            $message_err = $e->getMessage();
+                            $mail_ret[] = ['email' => $email, 'message' => 'fail', 'reason' => $message_err];
+
+                        }
+                       
+                    }
+                    DB::table('user_quiz')
+                ->where('id', $user->id)
+                ->update(['email_sent' => 1]); 
+                       
+            }
+            
+         if (!empty($mail_ret))
+            {
+                $return['success'] = $mail_ret;
+            }
+            else
+            {
+                $return['fail'] = array("User grade not allowed by mailer");
+            }
+    
+        return $return;
+    }
+//code ends here
+
 //Code for midweek email.
 	public function MidWeekEmail($testingBypass = NULL){
+	  
+              
 		//check if bypass is null
 			$MailChimp = Newsletter::getApi();
 			//get the list of subscriber
@@ -1930,25 +2159,24 @@ class HomeContentController extends Controller
 
 				}
 			}
-			$query = $this
-                        ->query
+			$Mainquery = new \Contentful\Delivery\Query();
+      $query = $Mainquery
                         ->setContentType("midweekEmail");
             $ent_value = $this
                     ->client
                     ->getEntries($query)[0];
-                    
-            $emailSubjectLine = $ent_value->topic;
-           // echo '<pre>'; print_r($ent_value->introText->getContent()[0]->getContent()[0]->getValue()); echo '</pre>'; exit;
+            $emailSubjectLine = $ent_value->emailSubjectLine;
+			
 			foreach ($all_members as $user)
                     {
 						
 						$email = $user['email'];
 						try
                             {
-                                Mail::send('mailer.midweekemail', ["data" => $ent_value, 'fname' => $user['fname']], function ($message) use ($user, $emailSubjectLine)
+                                Mail::send('mailer.midweekemail', ["data" => $ent_value, 'render'=>$this->renderer, 'fname' => $user['fname']], function ($message) use ($user, $emailSubjectLine)
                                 {
 
-                                    $message->to($user['email'])->subject($emailSubjectLine);
+                                    $message->to("katejhowe@gmail.com")->subject($emailSubjectLine);
                                 });
                                 $mail_ret[] = ['email' => $email, 'message' => 'success'];
 
@@ -1960,7 +2188,8 @@ class HomeContentController extends Controller
                                 $mail_ret[] = ['email' => $email, 'message' => 'fail', 'reason' => $message_err];
 
                             }
-                          
+                        print_r($mail_ret);
+                        exit;  
 				}
 				
 			 if (!empty($mail_ret))
@@ -1971,7 +2200,7 @@ class HomeContentController extends Controller
 				{
 					$return['fail'] = "User grade not allowed by mailer";
 				}
-		
+			return $return;
 			
 		}
 //code ends here
@@ -2059,10 +2288,19 @@ class HomeContentController extends Controller
                     //if($memval['status']=='subscribed'){
                     $email_address = $memval['email_address'];
                     $tags = $memval['tags'];
-
-                    $all_members[] = [
+                    $ret = false;
+					for($i=0;$i<count($tags); $i++){
+							if(is_numeric($tags[$i])){
+									$ret = true;
+									break;
+								}
+						}
+					if($ret){
+						$all_members[] = [
 
                     'email' => $email_address, 'tag' => $memval['tags'], 'fname' => $memval['merge_fields']['FNAME'], 'lname' => $memval['merge_fields']['LNAME'], ];
+						}
+                    
                 }
                 //}
                 
@@ -2080,16 +2318,25 @@ class HomeContentController extends Controller
                 {
                     $email_address = $memval['email_address'];
                     $tags = $memval['tags'];
-
-                    $all_members[] = [
+					$ret = false;
+					
+					for($i=0;$i<count($tags); $i++){
+							if(is_numeric($tags[$i]['name'])){
+								
+									$ret = true;
+									break;
+								}
+						}
+					if($ret){
+						$all_members[] = [
 
                     'email' => $email_address, 'tag' => $memval['tags'], 'fname' => $memval['merge_fields']['FNAME'], 'lname' => $memval['merge_fields']['LNAME'], ];
+						}
+                    
                 }
 
             }
         }
-
-        //dd($all_members);die;
         foreach ($ent_value as $key => $ent_value)
         {
 
@@ -2504,7 +2751,7 @@ class HomeContentController extends Controller
                     if (!empty($whatsGoingOnText))
                     {
                         $whatsGoingOnText = $whatsGoingOnText;
-                        $whatsGoingOnHeading = "<h3 style='padding:10px 0;margin:0;color:$dynamicContentColor;line-height:28px;'>- - - - WHAT'S GOING ON? - - - - </h3>";
+                        $whatsGoingOnHeading = "<h3 style='padding:10px 0;margin:0;color:$dynamicContentColor;line-height:28px;'>- - - - KNOW - - - - </h3>";
                     }
                     else
                     {
@@ -2871,6 +3118,7 @@ class HomeContentController extends Controller
                                 Mail::send('mailer.mailer_layout', ["data" => $dynamicArray, 'extraIdeas' => $get_all_grades_ideas], function ($message) use ($user, $emailSubjectLine)
                                 {
 
+                                    //$message->to($user['email'])->subject($emailSubjectLine);
                                     $message->to($user['email'])->subject($emailSubjectLine);
                                 });
                                 $mail_ret[] = ['email' => $email, 'message' => 'success'];
@@ -2927,4 +3175,3 @@ class HomeContentController extends Controller
     }
 
 }
-

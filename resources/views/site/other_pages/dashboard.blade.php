@@ -6,7 +6,14 @@ Post card
 
 @section('content')
 
-
+<style>
+  .topBanner a{
+	box-shadow: none !important;
+}
+  .topBanner a:hover{
+	box-shadow: none !important;
+}
+</style>
 <section class="topBanner accountInfo">
   <div class="container">
     <div class="row">
@@ -49,11 +56,13 @@ Post card
           @endif
           
         </div>
+      </aside>
+   
+<aside class="col-lg-9 col-md-8 col-12">
         <div class="infoBox">
           <h3>Subscription Info</h3>
           
           @if(!empty($subscription))
-          @foreach($subscription as $subscription)
           <table class="data-table table table-bodered">
             <thead>
               <tr>
@@ -66,6 +75,8 @@ Post card
               </tr>
             </thead>
             <tbody>
+          @foreach($subscription as $subscription)
+          
             <tr>
                   <th>{{ $subscription->plan_name}}</th>
                   
@@ -74,9 +85,10 @@ Post card
                   <th>{{ date("d-m-Y",strtotime($subscription->start_time))}}</th>
                   <th><a href="javascript:void(0)" id="cancelsub" data-id="{{ $subscription->subscription_id}}" class="">Cancel</a></th>
               </tr>
-            </tbody>
-          </table>
+            
           @endforeach
+          </tbody>
+          </table>
           @else
           No Subscription Data Found
           @endif

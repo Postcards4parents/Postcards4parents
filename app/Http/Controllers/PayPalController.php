@@ -31,7 +31,7 @@ class PayPalController extends Controller
 
     {
         $user_auth = Auth::guard('user')->user();
-        // dd($user_auth);
+        //dd($request);
         $userId = $user_auth->id;
         $userName = $user_auth->name;
         $userEmail = $user_auth->email;

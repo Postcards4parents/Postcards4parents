@@ -57,9 +57,27 @@ $names = explode(' ',$name);
                             {
                               $Gids[]=$grade_arr_id[$gVal];
                             }
+          if (!empty($Gids))
+        {
+
+            $query = $query
+                ->setContentType("postcard")
+                ->where("fields.gradeLevel.sys.id[in]", $Gids);
+
+            //->where("sys.publishedCounter[gte]","1");
+            
+        }
+        else
+        {
+			
+            $query = $query
+                ->setContentType("postcard")->setLimit(50);
+
+            //->where("sys.publishedCounter[gte]","1");
+            
+        }
                             // print_r(implode(',',$Gids));die;
-                            $query = $query->setContentType("postcard")
-                              ->where("fields.gradeLevel.sys.id[in]",implode(',',$Gids)); 
+                           
                               // ->orderBy("sys.createdAt",true);
 
                             $entries_pre = $client->getEntries($query);
@@ -69,7 +87,14 @@ $names = explode(' ',$name);
                                 @php
                                     if(!empty($postcardList->officeHours)){
                                         $link= $postcardList->officeHours->ooVideoLink;
-                                        $vedioLink = explode("=",$link);
+                                        if(strpos($link,"=") !== false){
+                                            $vedioLink = explode("=",$link);
+                                        }else{
+                                            
+                                            $vedioLink = explode("youtu.be/",$link);
+                                        }
+                                        
+                                        
                                     }    
                                     $entry_id=$postcardList->getId();
                                     $pre_title=$postcardList->get('title');
@@ -79,14 +104,15 @@ $names = explode(' ',$name);
                                     }else{
                                         $pre_title="";
                                         $pre_name = "";
-                                    }  
+                                    }
+                                    
                                 @endphp
                                 <tr>
                                     <td><a href="{{url("details/$entry_id/$pre_name")}}" target="_blank" class="your_postcard_link">{{$postcardList->title}}</a></td>
                                     @if(!empty($postcardList->officeHours))
-                                        <td><a href="#" data-toggle="modal" data-target="#videoModal"><i class="fas fa-play"></i></a>
+                                        <td><a href="#" data-toggle="modal" data-target="#{{$vedioLink[1]}}"><i class="fas fa-play"></i></a>
                                         <!-- Video Modal -->    
-                                        <div class="modal fade loginMd" id="videoModal">
+                                        <div class="modal fade loginMd" id="{{$vedioLink[1]}}">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                             <div class="modal-body">

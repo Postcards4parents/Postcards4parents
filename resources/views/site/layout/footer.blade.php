@@ -65,7 +65,7 @@
 <li><a href="#" id="forgetPass" data-toggle="modal" data-target="#forgetModal">Forgot password</a></li>
 <li><a href="{{ url('auth/facebook') }}"><img src="{!! asset('site/') !!}/images/facebook_icon.png"></a></li>
 <li><a href="{{ url('auth/google') }}"><img src="{!! asset('site/') !!}/images/gmail_icon.png"></a></li>
-<li><a id="SignupInLogin" data-toggle="modal" data-target="#stepModal1" href="#">Sign up!</a></li>
+<li><a href="{{url('register')}}">Sign up!</a></li>
                               </ul>
                           </div>
                       </div>
@@ -139,10 +139,10 @@ if($Usertype=='2')
 }
 @endphp
 @php
-         $pre_k = $client->getEntry("7gazpRR71NsWIQyscha73k");
+         $pre_k = $client->getEntry("MwKbXFZ6jrB7TPVOTZgrr");
          
          
-         $name=$pre_k->get('name');
+         $name=$pre_k->get('pageModuleName');
          
          if(!empty($name))
          {
@@ -150,7 +150,7 @@ if($Usertype=='2')
          }else{
            $head="";
          }   
-         $desc=$pre_k->get('description');
+         $desc=$pre_k->get('moduleText1');
         // echo '<pre>';print_r($desc);
          if(!empty($desc))
          {
@@ -159,10 +159,10 @@ if($Usertype=='2')
            $k_desc="";
          }
              
-         $link_logo = $pre_k->get('image', null, false);
+         $link_logo = $pre_k->get('moduleImages', null, false);
            
            if(!empty($link_logo)){
-             $link_logo_res = $client->resolveLink($link_logo);
+             $link_logo_res = $client->resolveLink($link_logo[0]);
             
              if(!empty($link_logo_res->getFile()))
              {
@@ -182,9 +182,9 @@ if($Usertype=='2')
    
     <h3>{{$head}}</h3>
    
-    <figure><img src="{{$link_logo_res_url}}" class="img-fluid"></figure>
+    <figure><img src="{{$link_logo_res_url}}" class="img-fluid" width="70px"></figure>
     <!--<a href="#" class="goBtn">Go<img src="images/arrow.png" class="img-fluid"></a>-->
-    <button id="clickBtn1" type="submit" class="goBtn" data-toggle="modal" data-target="#stepModal1">Go<img src="{!! asset('site/') !!}/images/arrow.png" class="img-fluid"></button>
+    <a id="clickBtn1" type="submit" class="goBtn" href="{{url('/quiz')}}" style="float: right;font-size:22px;">Find out <img src="{!! asset('site/') !!}/images/arrow.png" class="img-fluid"></a>
   </div>
 </div>
 

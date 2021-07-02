@@ -5,7 +5,7 @@ body,
 html {
     margin: 0px;
     padding: 0px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 14px;
     color: #0c0c0c;
 }
@@ -50,7 +50,9 @@ article {
     width: 100%;
     display: block;
 }
-
+table#learning {
+    margin-bottom: 24px;
+} 
 h1,
 h2,
 h3,
@@ -70,7 +72,7 @@ h1 {
 h4 {
     color: #6f6f6f;
     line-height: 20px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 	font-size:13px;
 }
 
@@ -85,7 +87,7 @@ h6 {
     font-size: 12px;
     color: #0f64e6;
     line-height: 22px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 html,
@@ -525,7 +527,7 @@ color: #fff; }
     font-size: 16px;
     margin: 10px 0;
     line-height: 22px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .howItWorks li:last-child,
@@ -578,7 +580,7 @@ color: #fff; }
     font-size: 18px;
     text-transform: uppercase;
     position: relative;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .recentList h3 {
@@ -1679,7 +1681,7 @@ h2.ttl>span {
     font-size: 18px;
     color: #000;
     padding-bottom: 10px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
     display: block;
     text-transform: uppercase;
 }
@@ -1743,7 +1745,7 @@ h2.ttl>span {
 }
 /* Update Css 6-4-21 */
 .whyDont span{color: #fff; font-size: 50px; font-family: 'Libre Baskerville', serif;}
-.box_Content h4 { font-size: 16px; margin: 10px 0; line-height: 22px; font-family: 'Lexend Exa', sans-serif; color:#000;}
+.box_Content h4 { font-size: 16px; margin: 10px 0; line-height: 22px; font-family: "DM Sans", sans-serif; color:#000;}
 .box_Content p { color: #373737; line-height: 23px; font-family: 'DM Sans', sans-serif; font-size: 14px; }
 .sign_UP{background: #fff; color: #f77345; padding: 15px 20px; font-size: 16px; font-weight: 500;  display: inline-block; margin-top: 30px; font-family: 'Roboto Mono', monospace; box-shadow: 3px 3px 3px rgba(254,137,90,0.5); -webkit-box-shadow: 3px 3px 3px rgba(254,137,90,0.5); -moz-box-shadow: 3px 3px 3px rgba(254,137,90,0.5); min-width: 170px; text-align: center; position: absolute; bottom: 20px; left:50%; transform: translateX(-50%); border-radius: 30px;-webkit-border-radius: 30px; moz-border-radius: 30px;}
 .newSection .nav .nav-item{ width: 16.6667%; width: calc(100% / 6); box-sizing: border-box;}
@@ -2090,7 +2092,7 @@ h2.ttl>span {
     color: #0f64e6;
     font-size: 14px;
     text-transform: uppercase;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
     margin: 30px 0 15px;
 }
 
@@ -2130,7 +2132,7 @@ h2.ttl>span {
     font-size: 12px;
     color: #0f64e6;
     line-height: 28px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .sources span {
@@ -2244,7 +2246,7 @@ h2.ttl>span {
     color: #0052e6;
     text-transform: uppercase;
     padding-bottom: 15px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .recentList li {
@@ -2378,7 +2380,7 @@ h2.ttl>span {
 .white-panel {position: absolute;background:none;box-shadow:none;padding:0;}
 .white-panel ul{}
 .white-panel ul li{ border: none; padding: 0px;line-height: 23px;}
-.white-panel ul li a{font-family: 'Lexend Exa', sans-serif; display: inline-block; color: #0f64e6; font-size: 13px; font-weight: 500;}
+.white-panel ul li a{font-family: "DM Sans", sans-serif; display: inline-block; color: #0f64e6; font-size: 13px; font-weight: 500;}
 /*---------------Thank You ----------------*/
 
 .thanks {
@@ -2466,7 +2468,7 @@ h2.ttl>span {
     width: auto;
     height: auto;
     position: static;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 #accordion .card-header [aria-expanded="true"]:after {
@@ -2647,6 +2649,7 @@ input:-webkit-autofill:active {
 /*---------------Home Quiz----------------*/
 
 .whatsYou{background:#fdf6dc; padding:230px 0 14px;/* min-height: 700px;*/}
+section#quizSections{background:#fdf6dc; padding:330px 0 14px;/* min-height: 700px;*/}
 .whatsYou h1,h2{font-size:28px; color:#000; margin-bottom:20px;}
 .whatsYou h1, .whatsYou h2{font-size:28px; color:#1c9970; margin-bottom:20px;}
 .whatsYou .hedTitle > span{text-decoration:underline;}
@@ -2743,7 +2746,7 @@ input:-webkit-autofill:active {
     display: none;
 }
 .multiForm button {
-    margin-right: 20px;
+    margin-left: 20px;
 }
 .multiForm button, .multiForm #prevBtn {
     color: #ffffff;
@@ -2889,7 +2892,7 @@ input:-webkit-autofill:active {
 .newSection .nav li a.active{ background: #fff; color: #333; /*border-top: 2px solid #ccc;*/}
 .newSection .nav li a{background:#1c9970;display:inline-block;color:#fff;padding:6px;font-size:13px; margin-right:1px;/*border-top:2px solid transparent;*/ height: 100%;display: flex;align-items: center;text-align: center; border-radius: 20px 20px 0px 0px; line-height:16px; justify-content: center; width: 117px; margin-top: 0;}
 .newSection .hedTitle{font-size:35px;color:#0f64e5;margin-bottom:20px;}
-.newSection p{line-height: 18px;font-size: 14px;margin-bottom: 20px;font-weight: 500; font-family: 'DM Sans', sans-serif;}
+.newSection p{line-height: 28px;font-size: 15px;margin-bottom: 20px; font-family: 'DM Sans', sans-serif;}
 .newSection .tab-content{border:none;box-shadow: 0 0 6px #949494; padding: 15px; background: #fff;}
 .ans{ padding: 15px 0;}
 .ans h3{ font-size:14px; color: #333; margin-bottom: 12px;}
@@ -3257,7 +3260,7 @@ textarea.parsley-error {
     background: none;
     padding: 0;
     box-shadow: none;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
 }
 
 .topBanner h3 a:hover,
@@ -3319,7 +3322,7 @@ textarea.parsley-error {
 
 .results h3 {
     font-size: 18px;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: "DM Sans", sans-serif;
     text-transform: uppercase;
 }
 
@@ -3583,9 +3586,11 @@ margin-bottom: 30px;
     }
 	.whatsYou, .whatsYou.home_whatsYou{padding: 50px 0; min-height: auto;}
 	.yelloBg{padding:0;}
-	.whatsYou h1, h2{font-size: 40px;}
+	.whatsYou h1, h2{font-size:25px;}
 	.nm label + label{margin-left:11px;}
 	.loginPage{padding: 50px 0;}
+	section#quizSections{ padding:50px 0 14px;}
+	.multiForm button, .multiForm #prevBtn{ font-size:18px;}
 	
 }
 
@@ -3688,8 +3693,12 @@ margin-bottom: 30px;
     .contentPanel .tools li+li {
         margin-left: 15px;
     }
-	.whatsYou h1, h2{font-size: 30px;}
-	.newSection h2{font-size: 30px;}
+	.whatsYou h1, h2{font-size:25px;}
+	.newSection h2{font-size: 25px;}
+	
+	
+	.nm{ text-align:center;}
+	.nm label{ display:inline-block;}
 }
 
 @media all and (max-width:575px) {
@@ -3757,7 +3766,12 @@ margin-bottom: 30px;
         display: none;
     }
 }
-
+@media all and (max-width:480px) {
+.nm label{ width:30px; height:30px; padding:2px; font-size:15px;}
+.nm label + label {margin-left: 9px;}
+.nm .checkmark::after{ width:27px; height:27px;}
+.whatsYou ul.reatType{ width:84%; margin:0 auto;}
+}
 @media all and (max-width:413px) {
     .topBanner a {
         padding: 10px;

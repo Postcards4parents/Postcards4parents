@@ -149,6 +149,9 @@ public function userSignup(Request $request)
      
   if ($validator->passes()) {
 
+    DB::beginTransaction();
+
+
     $user=User::create([
         'name' => $fname.' '.$lname,
         'email' => $email,
@@ -159,7 +162,7 @@ public function userSignup(Request $request)
 
 
 
-    DB::beginTransaction();
+
 
     try {
       
@@ -467,6 +470,9 @@ public function welcomeKit(){
   $quote_entry = $this->client->getEntries($query);
   $count = count($quote_entry);
   $rand = mt_rand(0,($count-1));
+
+  $subscription = DB::table('offer_payemnt_tbl')->where('offer_payemnt_tbl.user_id',$id)->get()->toArray();
+  
   /*quiz questions if not attempted */
   $query = $this->query->setContentType("quiz");
   $entries_pre = $this->client->getEntries($query);
@@ -481,6 +487,7 @@ public function welcomeKit(){
   ->with('quiz', $entries_pre[0]->quizQuestions)
   ->with('detail1',$detail)
   ->with('query_result', $resp)
+  ->with('subscription',$subscription)
   ->with('renderer',$this->renderer)
   ->with('query',$this->query)
   ->with('quotation',$quote_entry[$rand])
@@ -560,6 +567,7 @@ $form2=json_encode(array_values($New_form_arr_form));
 // print_r($welcomeKit->officeHours->ooVideoLink);die;
   $query = $this->query->setContentType("parentTestimonial");
   $quote_entry = $this->client->getEntries($query);
+  //echo '<pre>'; print_r($quote_entry); exit;
   $count = count($quote_entry);
   $rand = mt_rand(0,$count-1);
 return view('site.other_pages.postcardOfficeHour',compact('form2','form1'))

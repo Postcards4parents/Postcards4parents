@@ -209,9 +209,11 @@ if($('#form3')[0].checkValidity()) {
                   {
                   
                     toastr.success('Signup Completed', 'Please Login with your ID PASSWORD');
-                      
+                    // console.log($('#form3').parents('.loginForm').siblings());
                       setTimeout(function(){
-                        window.location.assign("{{url('payment/1T37AJFpbKtV6mgv2kC3Gb')}}");
+                        $('.loginForm').css('display','none');
+                        $('.formBox').css('display','block');
+                        // window.location.assign("{{url('payment/1T37AJFpbKtV6mgv2kC3Gb')}}");
                       },1000);
                       
                   }else{

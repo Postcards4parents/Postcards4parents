@@ -1,4 +1,4 @@
-body, html{margin: 0px;padding: 0px;font-family: 'Lexend Exa', sans-serif;font-size:14px;color:#0c0c0c;}
+body, html{margin: 0px;padding: 0px;font-family: "DM Sans", sans-serif;font-size:14px;color:#0c0c0c;}
 * {margin: 0;padding: 0;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box; outline:none;}
 aside, details, figcaption, figure, ins, summary, mark, title, video, footer, header, hgroup, nav, section, article{display: block;}
 .clear {padding: 0;margin: 0;line-height: 0;height: 0;font-size: 0;clear: both;width: 100%;display: block;}
@@ -82,7 +82,7 @@ a.signUp span{display:block;}
 .howItWorks li span{color:#fff;font-size:50px;font-family: 'Libre Baskerville', serif;}
 .howItWorks li:nth-child(2n+1){padding-right:30px;}
 .howItWorks li:nth-child(2n){padding-left:30px;}
-.howItWorks h3{font-size:16px;margin:10px 0;font-family: 'Lexend Exa', sans-serif;line-height:22px;}
+.howItWorks h3{font-size:16px;margin:10px 0;font-family: "DM Sans", sans-serif;line-height:22px;}
 .howItWorks li:last-child,.howItWorks li:nth-last-child(2){margin-bottom:0;}
 .howItWorks .link2{background:#fff;color:#0f64e6;padding:10px 20px;font-size:16px;font-weight:500;box-shadow:3px 3px 3px rgba(254,137,90,0.5);display:inline-block;margin-top:30px;font-family: 'Roboto Mono', monospace;-webkit-box-shadow:3px 3px 3px rgba(254,137,90,0.5);-moz-box-shadow:3px 3px 3px rgba(254,137,90,0.5);float:right;min-width:150px;text-align:center;}
 .howItWorks .link2:hover{background:#0f64e6;color:#fff;}
@@ -90,10 +90,10 @@ a.signUp span{display:block;}
 
 /* ===================== Recent Postcards ==================*/
 .recentList{clear:both;padding:50px 0;}
-.recentList h2{margin-bottom:30px;color:#0f64e6;font-size:24px;text-transform:uppercase;position:relative;font-family: 'Lexend Exa', sans-serif;}
+.recentList h2{margin-bottom:30px;color:#0f64e6;font-size:24px;text-transform:uppercase;position:relative;font-family: "DM Sans", sans-serif;}
 .recentList h2:before{width:10px;height:2px;content:"";display:inline-block;vertical-align:super;background:#0f64e6;margin-right:15px;}
 .recentList h2:after{width:10px;height:2px;content:"";display:inline-block;vertical-align:super;background:#0f64e6;margin-left:15px;}
-.recentList h3{margin:15px 0;font-size:16px;font-family: 'Lexend Exa', sans-serif;}
+.recentList h3{margin:15px 0;font-size:16px;font-family: "DM Sans", sans-serif;}
 .recentList h3 a{color:#000;}
 .recentList h3 a:hover{color:#0f64e6;}
 .recentList p{color:#404040;font-size:13px;}
@@ -286,7 +286,7 @@ input.txtInp{font-family: 'Roboto Mono', monospace;height:36px;background:none;c
 .modalForm input[type="radio"]:checked ~ .checkmark {background-color: #fde48b;}
 .modalForm input[type="radio"]:checked ~ .checkmark:after {display: block;}
 h2.ttl{color:#000; font-size:40px; display:inline-block; width:400px;}
-h2.ttl > span{font-size:18px; color:#000; padding-bottom:10px; font-family: 'Lexend Exa', sans-serif; display:block; text-transform:uppercase;}
+h2.ttl > span{font-size:18px; color:#000; padding-bottom:10px; font-family: "DM Sans", sans-serif; display:block; text-transform:uppercase;}
 
 /* ===================== each Weekly ==================*/
 .eachWeekly{background:#f5ce43; padding:30px 0;}
@@ -364,7 +364,7 @@ h2.ttl > span{font-size:18px; color:#000; padding-bottom:10px; font-family: 'Lex
 .paraBlock p i{display:block;}
 .paraBlock li{color:#6e6e6e;font-family: 'Roboto Mono', monospace;}
 .contentPanel{clear:both;padding:30px 0 50px;}
-.contentPanel h3{color:#1c9970;font-size:14px;text-transform: uppercase;font-family: 'Lexend Exa', sans-serif;margin:30px 0 15px;}
+.contentPanel h3{color:#1c9970;font-size:14px;text-transform: uppercase;font-family: "DM Sans", sans-serif;margin:30px 0 15px;}
 .contentPanel h3:before{content:"";background:url(../images/border.png) 0 center no-repeat;width:31px;height:2px;display:inline-block;vertical-align:middle;margin-right:15px;}
 .contentPanel h3:after{content:"";background:url(../images/border.png) 0 center no-repeat;width:31px;height:2px;display:inline-block;vertical-align:middle;margin-left:15px;}
 .contentPanel p + p{margin-top:20px;}

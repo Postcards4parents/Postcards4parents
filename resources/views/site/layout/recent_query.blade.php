@@ -22,20 +22,28 @@ if(Auth::guard('user')->check()){
   
          }
      }
-    
+     if(!empty($grades_arr)){
      foreach($grades_arr as $gVal)
      {
         $Gids[]=$grade_arr_id[$gVal];
      }
-
-
+	}
+else{
+	$Gids = array();
+}
+if(!empty($Gids)){
   $Rquery=$q->setContentType("postcard")
 
   ->where("fields.gradeLevel.sys.id[in]",implode(',',$Gids)) 
  ->where("sys.updatedAt[gte]",$day_before)
  ->orderBy("sys.createdAt",true)
  ->setLimit(10);
-
+}else{
+$Rquery=$q->setContentType("postcard")
+ ->where("sys.updatedAt[gte]",$day_before)
+ ->orderBy("sys.createdAt",true)
+ ->setLimit(10);
+}
  //->where("sys.publishedCounter[gte]","1");
 
 

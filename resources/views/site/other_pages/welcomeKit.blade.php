@@ -23,7 +23,7 @@ $query_result = (array)$query_result;
                 <li><a href="{{ url('postcards-office-hours') }}"><i class="far fa-file-alt"></i> Your Postcards</a></li>
                 <!-- <li><a href="{{ url('story-circle') }}"><i class="far fa-file-alt"></i> Story Circle</a></li> -->
                 <li><a href="{{ url('userDashboard') }}"><i class="fas fa-info"></i> Account Info</a></li>
-                <li><a href="{{ url('quiz') }}"><i class="fas fa-award"></i> Take Quiz</a></li>	
+                <li><a href="{{ url('quiz') }}"><i class="fas fa-award"></i> Take Survey</a></li>	
                 <li><a href="{{ url('user_log/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </aside>
@@ -35,11 +35,16 @@ $query_result = (array)$query_result;
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+							
                             <div class="">
                                 <ul class="nav nav-pills d-flex flex-nowrap" role="tablist">
                                 @foreach($welcomeKitPages as $key=>$welcomeKitPagesList)
+								@if($welcomeKitPagesList->pageTitle == 'Snapshot Summary')
                                     <li class="nav-item"><a <?php if($welcomeKitPagesList->pageTitle == 'Snapshot Summary'){ echo"class='active'";}else{}?> data-toggle="pill" href="#menuTab{{$key++}}">{{$welcomeKitPagesList->pageTitle}}</a></li>
-                                @endforeach
+								@else
+								<li class="nav-item"><a <?php if(!empty($subscription)){ echo"class=''"; ?> data-toggle="pill" href="#menuTab{{$key++}}" <?php }else{ echo"class='disabled'"; ?> data-toggle="tooltip" data-placement="top" title="Subscribe below to unlock your full Welcome Kit!" <?php } ?> >{{$welcomeKitPagesList->pageTitle}}</a></li>
+                                @endif
+								@endforeach
                                 </ul>
                                 
                                 <!-- Tab panes -->
@@ -56,11 +61,14 @@ $query_result = (array)$query_result;
                                     <div id="menuTab{{$keey++}}" class="tab-pane <?php if($welcomeKitPagesList2->pageTitle == 'Snapshot Summary'){ echo"active";} else{echo"fade";}?>">
                                     @if($welcomeKitPagesList2->pageTitle == 'Snapshot Summary')
                                         <!--<figure class="p-5 text-center"><img src="{!! asset('site/') !!}/images/graph.png" class="img-fluid"></figure>-->
-										<div id="chartDiv" style="width: 780px; height: 500px; margin: 0px auto;"></div>
+										<div id="chartDiv" style="width: auto; max-width:100%; height: 500px; margin: 0px auto;"></div>
                                     @endif
                                     <div class="row pl-5">
                                         @if($welcomeKitPagesList2->pageTitle == 'Snapshot Summary')
-                                        <div class="col-md-12"><h2 id="quizUserName">Hi {{$Username}}!</h2></div>
+										@php
+											$namez = explode(" ",$Username);
+										@endphp
+                                        <div class="col-md-12"><h2 id="quizUserName">Hi {{$namez[0]}}!</h2></div>
                                         @endif
 										<div class="col-md-12">{!! $leftColumnDec !!}</div>
                                         @foreach($welcomeKitPagesList2->welcomeKitContentChunks as $welcomeKitContentChunksList)
@@ -95,8 +103,8 @@ $query_result = (array)$query_result;
                                         @else
                                         
                                         <div class="row {{ $display}}" id="{{ $id }}">
-                                        <div class="col-md-8">{!! $chunkContentData !!}</div>
-                                        <div class="col-md-3"><img src="{{$chunkImage_u_url}}" class="img-fluid"></div>
+                                        <div class="col-md-7">{!! $chunkContentData !!}</div>
+                                        <div class="col-md-5"><img src="{{$chunkImage_u_url}}" class="img-fluid"></div>
                                         </div>
                                         @endif
                                           
@@ -112,7 +120,7 @@ $query_result = (array)$query_result;
                 </div>
             </section>
             @else
-            <section class="whatsYou home_whatsYou" id="quizSections">
+            <section class="whatsYou home_whatsYou" id="">
 			  <div class="container">
 				<form id="regForm" class="multiForm">
 				  @php $l=1;
@@ -461,14 +469,13 @@ $query_result = (array)$query_result;
             yAxis: 'ax1',
             palette: {
               id: 'pal1',
-              pointValue: '{%yValue/12}',
+              pointValue: '{%yValue}',
               ranges: [
-                { value: [-6,-1], color: '#00000045' },
-				{ value: [-1,0], color: '#0000009e' },
-                { value: [0, 1], color: '#000000c9' },
-				{ value: [1, 2], color: '#8ecfac' },
-				{ value: [2, 6], color: '#1c9970' },
-              ],
+                { value: [-6,-3], color: '#FF5353' },
+                { value: [-2,1], color: '#FFD221' },
+                { value: [2,6], color: '#77E6B4' },
+               
+              ]
             },
             shape_label: { style: { fontSize: 28 } },
             points: [['x', [-6, {{$query_result['emp_attune']}}]]],
@@ -488,17 +495,13 @@ $query_result = (array)$query_result;
               id: 'pal2',
               pointValue: '%yValue',
               ranges: [
-                { value: [-6,-5], color: '#00000045' },
-                { value: [-5,-4], color: '#0000009e' },
-                { value: [-4, -3], color: '#000000c9' },
-				{ value: [-3, -2], color: '#8ecfac' },
-				{ value: [-2, 2], color: '#1c9970' },
-				{ value: [2, 3], color: '#8ecfac' },
-				{ value: [3, 4], color: '#000000c9' },
-				{ value: [4, 5], color: '#0000009e' },
-				{ value: [5, 6], color: '#00000045' },
-				
-              ],
+                { value: [-6,-5], color: '#FF5353' },
+                { value: [-4,-3], color: '#FFD221' },
+                { value: [-2,2], color: '#77E6B4' },
+                { value: [3,4], color: '#FFD221' },
+                { value: [5,6], color: '#FF5353' },
+               
+              ]
             },
             shape_label: { style: { fontSize: 28 } },
             points: [['x', [-6, {{$query_result['struc_control']}}]]],

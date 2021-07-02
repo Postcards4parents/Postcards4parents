@@ -1,4 +1,3 @@
-
 @extends('site.layout.main')
 
 @section('title')
@@ -65,7 +64,7 @@ Postcards for Parents
       <p>{!! $k_desc !!}</p>
       
       @if($Usertype !='2')
-      <a id="anotherSignup1" data-toggle="modal" data-target="#stepModal1" href="#" class="link2">Sign up!</a> 
+      <a href="{{url('register')}}" class="link2">Sign up!</a> 
       @endif  
     </aside>
       <aside class="col-lg-7 col-md-6 my-auto">

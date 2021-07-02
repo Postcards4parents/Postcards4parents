@@ -47,7 +47,7 @@
         </tr>
         <tr>
         <tr><td>&nbsp;</td></tr>
-      
+      <tr>
           <td style="text-align:center;">
             <img src="{{ $entrys->media[0]->getFile()->getUrl()}}">
           </td>
@@ -57,7 +57,7 @@
 
         <tr>
           <td>
-          	<p style="margin:0px; padding:0px; color:#1c75bc;">{{ $entrys->bottomText->getContent()[0]->getContent()[0]->getValue() }}:</p>
+          	<p style="margin:0px; padding:0px; color:#1c75bc;">{{ $entrys->bottomText->getContent()[0]->getContent()[0]->getValue() }}</p>
             <ul style="margin:0px; padding:0px 0px 0px 25px;">
               @foreach($entrys->bottomText->getContent()[1]->getContent() as $bottom)
               <li style="margin:0px; padding:10px 0 0; font-size:15px; color:#1c75bc;">{{ $bottom->getContent()[0]->getContent()[0]->getValue()}}</li>

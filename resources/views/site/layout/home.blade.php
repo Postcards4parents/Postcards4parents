@@ -1,9 +1,5 @@
 @extends('site.layout.main')
-
-
-
 @section('content')
-<!-- Banner -->
 <section class="topBanner">
     <div class="container">
     
@@ -47,9 +43,9 @@
           {{-- <a href="#" class="link1">Read Postcards</a> --}}
          
           @if($Usertype !='2')
-           <a id="anotherSignup1" data-toggle="modal" data-target="#stepModal1" href="#" class="link2 first-btn">Sign up!</a> 
+           <a href="{{url('register')}}" class="link2 first-btn">Sign up!</a> 
           @endif
-           {{-- <button id="anotherSignup" type="submit" class="link2 a" data-toggle="modal" data-target="#stepModal1">Sign up!</button> --}}
+           {{-- <a class="link2 a" href="{{url('register')}}">Sign up!</a> --}}
         </aside>
         <aside class="col-lg-7 col-md-6 my-auto">
         <img src="{{$banner_media_url}}" class="img-fluid">
@@ -95,6 +91,8 @@
     </div>
   </div>
 </section>
+<!-- Banner -->
+
 <!--info panel move here -->
 <section class="infoPanel">
   <?php 
@@ -125,7 +123,7 @@
     </div>
   </div>
 </section>
-<section class="whatsYou home_whatsYou" id="quizSections">
+<section class="whatsYou home_whatsYou" id="quizSections1">
   <div class="container">
     <form id="regForm" class="multiForm">
       @php $l=1;
@@ -541,9 +539,9 @@ font-family: 'Roboto Mono', monospace;
         </li>
       </ul>
       @if($Usertype != '2')
-      <a id="anotherSignup2" data-toggle="modal" data-target="#stepModal1" href="#" class="link2">Sign up!</a> 
+      <a href="{{url('register')}}" class="link2">Sign up!</a> 
       @endif
-      {{-- <a href="#" class="link2">Sign up</a> --}}
+      {{-- <a href="{{url('register')}}" class="link2">Sign up</a> --}}
   </div>
 </section>
 
@@ -669,7 +667,7 @@ font-family: 'Roboto Mono', monospace;
 						<p><i class="fas fa-check"></i> {{$productFeatureList->productFeature}}</p>
 					  @endforeach
 					  @if($Usertype!=2)
-						<a id="SignupInLogin" class="link2" data-toggle="modal" data-target="#stepModal1" href="#">Sign up!</a>
+						<a  class="link2" href="{{url('register')}}">Sign up!</a>
 					  @else
 						<input type="hidden" id="productTitle" value="{{$productOfferList->productTitle}}" >
 						<input type="hidden" id="productAmount" value="{{$productOfferList->priceMonthy}}" >
@@ -692,11 +690,11 @@ font-family: 'Roboto Mono', monospace;
 						<p><i class="fas fa-check"></i> {{$productFeatureList->productFeature}}</p>
 					  @endforeach
 					  @if($Usertype!=2)
-						<a id="SignupInLogin" class="link2" data-toggle="modal" data-target="#stepModal1" href="#">Sign up!</a>
+						<a  class="link2" href="{{url('register')}}">Sign up!</a>
 					  @else
 						<input type="hidden" id="productTitle" value="{{$productOfferList->productTitle}}" >
 						<input type="hidden" id="productAmount" value="{{$productOfferList->priceMonthy}}" >
-						<a href="javascript:void();" class="link2 paymentOffer">Purchase Offer!</a>
+						<a href="{{ url('payment')}}/{{$productFeatureList->getId()}}" class="link2 paymentOffer">Purchase Offer!</a>
 					  @endif  
 					</div>
 				  </div>

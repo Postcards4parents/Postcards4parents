@@ -42,7 +42,7 @@
           {!! $r_support !!}  
          
           @if($Usertype !='2')
-           <a id="anotherSignup1" data-toggle="modal" data-target="#stepModal1" href="#" class="link2">Sign up!</a> 
+           <a href="{{url('register')}}" class="link2">Sign up!</a> 
           @endif
          
         </aside>
@@ -218,7 +218,7 @@
           </li>
         </ul>
         @if($Usertype != '2')
-        <a id="anotherSignup2" data-toggle="modal" data-target="#stepModal1" href="#" class="link2">Sign up!</a> 
+        <a href="{{url('register')}}" class="link2">Sign up!</a> 
         @endif
         {{-- <a href="#" class="link2">Sign up</a> --}}
     </div>

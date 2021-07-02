@@ -302,6 +302,40 @@
         }else{
           $section4Image1_url="";
         }
+$section4Title4=$pre_k->get('section4Title4');
+         
+         if(!empty($section4Title4))
+         {
+          $section4Title1= $section4Title1;
+         }else{
+           $section4Title1="";
+         }   
+         
+
+         $section4Desc4=$pre_k->get('section4Desc4');
+        // echo '<pre>';print_r($desc);
+         if(!empty($section4Desc4))
+         {
+          $section4Desc4= $renderer->render($section4Desc4);
+         }else{
+           $section4Desc4="";
+         }
+         
+        $section4Image4 = $pre_k->get('section4Image4', null, false);
+      
+        if(!empty($section4Image4)){
+          $section4Image4_u = $client->resolveLink($section4Image4);
+          if(!empty($section4Image4_u->getFile()))
+          {
+            $section4Image4_url= $section4Image4_u->getFile()->getUrl();
+          }else{
+
+            $section4Image4_url="";
+          }
+          
+        }else{
+          $section4Image4_url="";
+        }
 
 
         ///4.2
@@ -338,6 +372,42 @@
           
         }else{
           $section4Image2_url="";
+        }
+
+        ///4.3
+        $section4Title3=$pre_k->get('section4Title3');
+         
+         if(!empty($section4Title2))
+         {
+          $section4Title3= $section4Title3;
+         }else{
+           $section4Title3="";
+         }   
+         
+
+         $section4Desc3=$pre_k->get('section4Desc3');
+        // echo '<pre>';print_r($desc);
+         if(!empty($section4Desc3))
+         {
+          $section4Desc3= $renderer->render($section4Desc3);
+         }else{
+           $section4Desc3="";
+         }
+         
+        $section4Image3 = $pre_k->get('section4Image3', null, false);
+      
+        if(!empty($section4Image3)){
+          $section4Image3_u = $client->resolveLink($section4Image3);
+          if(!empty($section4Image3_u->getFile()))
+          {
+            $section4Image3_url= $section4Image3_u->getFile()->getUrl();
+          }else{
+
+            $section4Image3_url="";
+          }
+          
+        }else{
+          $section4Image3_url="";
         }
 
          
@@ -638,18 +708,20 @@
 
             <div class="col-12 col-md-6">
               <div class="teamList">
-                <figure><img src="{{$section4Image1_url}}" class="img-fluid"></figure>
-                <h3>{{$section4Title1}}</h3>
-                {!! $section4Desc1 !!}
+                <figure><img src="{{$section4Image3_url}}" class="img-fluid"></figure>
+                <h3>{{$section4Title3}}</h3>
+                {!! $section4Desc3 !!}
               </div>
             </div>
+			@if('' !== ($section4Image4_url))
             <div class="col-12 col-md-6">
               <div class="teamList">
-                <figure><img src="{{$section4Image2_url}}" class="img-fluid"></figure>
-                <h3>{{$section4Title2}}</h3>
-                {!! $section4Desc2 !!}
+                <figure><img src="{{$section4Image4_url}}" class="img-fluid"></figure>
+                <h3>{{$section4Title4}}</h3>
+                {!! $section4Desc4 !!}
               </div>
             </div>
+		   @endif
           </div>
         </div>
       </section>

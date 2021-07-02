@@ -96,7 +96,7 @@
         <td class="toolstd" align="left" valign="middle" style="background:{{$data['dynamicBackgroundColor']}};padding:20px;">
           <p style="padding:0;margin:0;color:{{$data['dynamicContentColor']}};font-size:14px;text-transform:none;">What's your experience?</p>
         <h3 style="margin:0;color:{{$data['dynamicContentColor']}};font-size:24px;padding:10px 0 15px 20px;text-transform:none;font-style: italic;font-family: Georgia, Times, 'Times New Roman', serif;font-weight:500;letter-spacing:0;">{{$data['sharingSnippet']}}</h3>
-          <p style="padding:0;margin:0;color:{{$data['dynamicContentColor']}}">Let us know on <span style="display:inline-block;vertical-align:top:margin:0 5px;"><a target="_blank" href="{{$data['facebookPostLink']}}" style="display:block;color:{{$data['dynamicContentColor']}};border:1px solid {{$data['dynamicContentColor']}};padding:5px 10px;text-decoration:none;">Facebook</a></span><span style="display:inline-block;vertical-align:top:margin:0 5px;"><a target="_blank" href="{{$data['instagramPostLink']}}" style="display:block;color:{{$data['dynamicContentColor']}};border:1px solid {{$data['dynamicContentColor']}};padding:5px 10px;text-decoration:none;">Instagram</a></span></p>
+          <p style="padding:0;margin:0;color:{{$data['dynamicContentColor']}}">Ask a question or share a comment <span style="display:inline-block;vertical-align:top:margin:0 5px;"><a target="_blank" href="{{$data['facebookPostLink']}}" style="display:block;color:{{$data['dynamicContentColor']}};border:1px solid {{$data['dynamicContentColor']}};padding:5px 10px;text-decoration:none;">Facebook</a></span><span style="display:inline-block;vertical-align:top:margin:0 5px;"><a target="_blank" href="{{$data['instagramPostLink']}}" style="display:block;color:{{$data['dynamicContentColor']}};border:1px solid {{$data['dynamicContentColor']}};padding:5px 10px;text-decoration:none;">Instagram</a></span></p>
         </td>
       </tr>
       @endif
@@ -147,7 +147,7 @@
                   <tr>
                     <td align="left" valign="middle">
                     <span mc:edit="supportingyourchildheading">
-                    <h3 style="padding:10px 0;margin:0;color:{{$data['dynamicContentColor']}};line-height:24px;">- - - - SUPPORTING YOUR {{$extrav['grade_name'] }} - - - -</h3>
+                    <h3 style="padding:10px 0;margin:0;color:{{$data['dynamicContentColor']}};line-height:24px;">- - - - YOUR {{$extrav['grade_name'] }}: CONNECT & EMPOWER - - - -</h3>
                     </span>
                       <div mc:edit="supportingyourchildcontent" style="padding:0;margin:0;line-height:24px;font-family:Arial, Helvetica, sans-serif;color:#5C5F60;font-size:14px;">
                         @if(!empty($Atthisval)) 

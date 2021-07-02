@@ -69,7 +69,7 @@
     $query=$query->setContentType("postcard")
         ->where("fields.gradeLevel.sys.id[in]",$Gids_ids) 
         ->orderBy('sys.createdAt')
-        ->orderBy('sys.id');
+        ->orderBy('sys.id')->setLimit(50);
         //->where("sys.publishedCounter[gte]","1");
     $ent_value = $client->getEntries($query);
 
@@ -77,7 +77,7 @@
 
       $query=$query->setContentType("postcard")
         ->orderBy('sys.createdAt')
-        ->orderBy('sys.id');
+        ->orderBy('sys.id')->setLimit(50);
         
         //->where("sys.publishedCounter[gte]","1");
       $ent_value = $client->getEntries($query);

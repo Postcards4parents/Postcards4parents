@@ -33,28 +33,32 @@ Route::get('/pass', function () {
  });
 Auth::routes(['verify' => true]);
 //Route::group(['middleware' => ['auth']], function() {
-        Route::get('/payment/{id}','PaymentController@index');
+        //Route::get('/payment/{id}','PaymentController@index');
+		//Route::get('/UserSet','SignUpController@showRegistrationFormRegister');
+		Route::get('/payment/flows','PaymentController@index');
         Route::get('/payment/createproduct','PaymentController@create_product');
         Route::get('/addplans','PaymentController@create_plan');
         Route::get('/listplan','PaymentController@list_plan');
         Route::get('/payment/goforpayment','PaymentController@listPlan');
         Route::post('/storepayment','PaymentController@store');
+        Route::post('/payment/couponcheck','PaymentController@couponcheck');
 //});
 Route::get('/clear-cache', function() {
-     Artisan::call('cache:clear');
+    //-- Artisan::call('cache:clear');
      //Artisan::call('route:cache');
      //Artisan::call('route:clear');
-     Artisan::call('view:clear');
-     // Artisan::call('postcard:midmailer');
-     //Artisan::call('config:cache');
-     
+   //--  Artisan::call('view:clear');
+     //Artisan::call('postcard:midmailer');
+   // Artisan::call('config:cache');
+     Artisan::call('postcard:mailer');
      return "Cache is cleared";
 });
-
+Route::get('/error', 'HomeContentController@errorHandeler');
 Route::get('/page', function () {  
     return view('admin.admin');
 });
 Route::get('/', 'HomeContentController@index');
+Route::get('video', 'HomeContentController@video');
 Route::get('kindergarten', 'HomeContentController@kindergarten');
 Route::get('grades-1-3', 'HomeContentController@grade_1_3');
 Route::get('grades-4-5', 'HomeContentController@grade_4_5');

@@ -366,6 +366,6 @@
 <style>
 	.cToolBox{background: #2baf86;padding: 20px; height: 100%;}
 	.cToolBox h2,.cToolBox h3{color: #fff; font-size:35px; margin: 0px;}
-	.bottomList .cToolBox p{color: #fff; line-height:32px; font-size:20px; font-family: 'Libre Baskerville', serif;}
+	.bottomList .cToolBox p{color: #fff; line-height:32px; font-size:20px; font-family: 'DM Sans', sans-serif;}
   .empowerment{background: #f77345;}
 </style>			

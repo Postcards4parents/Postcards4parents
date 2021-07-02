@@ -93,7 +93,7 @@
 				 
             @endif
               @if(($quizQuestion->quizAnswerFormat->quizAnswerType != "Affirmation page"))
-                @if($Usertype==2)
+                @if(($Usertype==2) && (strpos($quizQuestion->quizQuestion,"get your results") !== false))
                 @else
                 <h3>{{$quizQuestion->quizQuestion}} <span>{{$quizQuestion->instructionForAnswering}}</span></h3>
                 @endif
@@ -255,13 +255,13 @@
                 
                 @else
                 <div class="form-group">
-                        <input type="text" name="fname" class="" oninput="this.className = ''" placeholder="First Name">
+                        <input type="text" name="fname" class="" id="qfname" oninput="this.className = ''" placeholder="First Name">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="lname" class="" oninput="this.className = ''" placeholder="Last Name">
+                        <input type="text" name="lname" class="" id="qlname"  oninput="this.className = ''" placeholder="Last Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" class="" oninput="this.className = ''" placeholder="Email Address">
+                        <input type="email" name="email" class="" id="qemail" oninput="this.className = ''" placeholder="Email Address">
                     </div>
                     <h4>Your child’s grade(s)</h4>
                   <div id="form1renderresults">
@@ -299,11 +299,14 @@
                     </div>
                 @endif
                   
-                  
-                  <ul class="listStar">
+                @if($Usertype==2)
+                @else
+                <!--<ul class="listStar">
                     <li>Our personalized subscription service is currently only available for parents with children in grades K–5. If your child is younger or older, please indicate their grade range, and we will still send your Personal Parenting Profile.</li>
                     <li>If you have more than one child, select the current school grade for each of them. In summer, enter the grade they will be entering.</li>
-                  </ul>
+                  </ul>-->
+                @endif
+                  
                 </div>
               @else
               @php
@@ -368,7 +371,7 @@
           <div class="">
             <ul class="nav nav-pills d-flex flex-nowrap tabBtn" role="tablist">
               @foreach($welcomeKitPages as $key=>$welcomeKitPagesList)
-                <li class="nav-item"><a <?php if($welcomeKitPagesList->pageTitle == 'Snapshot Summary'){ echo"class='active'";}?> data-toggle="pill" href="#menuTab{{$key++}}">{{$welcomeKitPagesList->pageTitle}}</a></li>
+                <li class="nav-item"><a <?php if($welcomeKitPagesList->pageTitle == 'Snapshot Summary'){ echo"class='active'"; ?>  data-toggle="pill" href="#menuTab{{$key++}}" <?php } else{ echo"class='disabled'"; ?>  data-toggle="tooltip" data-placement="top" title="Subscribe below to unlock your full Welcome Kit!"<?php }?> >{{$welcomeKitPagesList->pageTitle}}</a></li>
               @endforeach
             </ul>
             
@@ -491,7 +494,7 @@
                    `   <p><i class="fas fa-check"></i> {{$productFeatureList->productFeature}}</p>
                     @endforeach
                     @if($Usertype!=2)
-                      <a id="SignupInLogin" class="link2" data-toggle="modal" data-target="#stepModal1" href="#">Sign up!</a>
+                      <a class="link2" href="{{url('register')}}">Sign up!</a>
                     @else
                       <input type="hidden" id="productTitle" value="{{$productOfferList->productTitle}}" >
                       <input type="hidden" id="productAmount" value="{{$productOfferList->priceMonthy}}" >
@@ -500,6 +503,7 @@
                   </div>
                 </div>
               @else
+              @if($productOfferList->getId() == '3d23f4B66yvnPO4eoGCe4S')
                 <div class="mb-4">
                   <div class="post-card-content h-100">
                     <h3 class="text-center">{{$productOfferList->productTitle}}</h3>
@@ -513,7 +517,7 @@
                       <p><i class="fas fa-check"></i> {{$productFeatureList->productFeature}}</p>
                     @endforeach
                     @if($Usertype!=2)
-                      <a id="SignupInLogin" class="link2" data-toggle="modal" data-target="#stepModal1" href="#">Sign up!</a>
+                      <a class="link2" href="{{url('register')}}">Sign up!</a>
                     @else
                       <input type="hidden" id="productTitle" value="{{$productOfferList->productTitle}}" >
                       <input type="hidden" id="productAmount" value="{{$productOfferList->priceMonthy}}" >
@@ -522,6 +526,7 @@
                   </div>
                 </div>
               @endif  
+              @endif
             @endforeach
           </div>
 		</div>
@@ -698,14 +703,13 @@ Quiz
             yAxis: 'ax1',
             palette: {
               id: 'pal1',
-              pointValue: '{%yValue/12}',
-              ranges:  [
-                { value: [-6,-1], color: '#00000045' },
-				{ value: [-1,0], color: '#0000009e' },
-                { value: [0, 1], color: '#000000c9' },
-				{ value: [1, 2], color: '#8ecfac' },
-				{ value: [2, 6], color: '#1c9970' },
-              ],
+              pointValue: '{%yValue}',
+              ranges: [
+                { value: [-6,-3], color: '#FF5353' },
+                { value: [-2,1], color: '#FFD221' },
+                { value: [2,6], color: '#77E6B4' },
+               
+              ]
             },
             shape_label: { style: { fontSize: 28 } },
             points: [['x', [-6, data.emp_attune]]],
@@ -725,17 +729,13 @@ Quiz
               id: 'pal2',
               pointValue: '%yValue',
               ranges: [
-                { value: [-6,-5], color: '#00000045' },
-                { value: [-5,-4], color: '#0000009e' },
-                { value: [-4, -3], color: '#000000c9' },
-				{ value: [-3, -2], color: '#8ecfac' },
-				{ value: [-2, 2], color: '#1c9970' },
-				{ value: [2, 3], color: '#8ecfac' },
-				{ value: [3, 4], color: '#000000c9' },
-				{ value: [4, 5], color: '#0000009e' },
-				{ value: [5, 6], color: '#00000045' },
-				
-              ],
+                { value: [-6,-5], color: '#FF5353' },
+                { value: [-4,-3], color: '#FFD221' },
+                { value: [-2,2], color: '#77E6B4' },
+                { value: [3,4], color: '#FFD221' },
+                { value: [5,6], color: '#FF5353' },
+               
+              ]
             },
             shape_label: { style: { fontSize: 28 } },
             points: [['x', [-6, data.struc_control]]],
@@ -759,7 +759,19 @@ Quiz
     // Otherwise, display the correct tab:
     showTab(currentTab);
   }
+  $("#qfname").on('blur',function() {
+    $("#fname").val($(this).val());
 
+  });
+  $("#qlname").on('blur',function() {
+    $("#lname").val($(this).val());
+});
+$("#qemail").on('blur',function() {
+  $("#email").val($(this).val());
+});
+$(".cus").on('click',function() {
+    
+});
   function validateForm() {
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
@@ -812,5 +824,10 @@ Quiz
 			//console.log(data);
 		  });
   })
-</script>    
+</script>   
+<style>
+  #draggable {
+    display: none;
+}
+  </style>
 @endsection      

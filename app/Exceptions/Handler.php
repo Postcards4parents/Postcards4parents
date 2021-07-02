@@ -54,7 +54,9 @@ class Handler extends ExceptionHandler
         {
             return redirect('postcards');
         }
-        
+        else{
+			return redirect('error');
+		}
        
        return parent::render($request, $exception);
     }

@@ -7,6 +7,7 @@ use Mail;
 use App\Managetemp;
 use App\UserQuiz;
 use Illuminate\Support\Facades\Auth;
+use Newsletter;
 class QuizController extends Controller
 {
     /**
@@ -175,7 +176,7 @@ class QuizController extends Controller
 			$autonomy = $hands1 - $ph;
 			$selfRegulation = $parentCalm - $py;
 			//calculate the result for graph and snapshot summary
-				
+				$grd = array("Quiz Taken");
 				$emp_attune = (($ed1+$play1+$pt1+$ex1+$po) - ($ed2+$play2+$pt2+$ex2+$pc2))/5;
 				$struc_control = (($rl1+$rt1+$sx1) - ($rl2+$rt2+$sx2))/3;
 				$arg['emp_attune'] = $emp_attune;
@@ -183,26 +184,36 @@ class QuizController extends Controller
 				if(((($emp_attune < 0)AND($emp_attune > -2)) AND ($struc_control > 2)) OR (($emp_attune < -2) AND ($struc_control >= 0))){
 						//snapshot cluster authoritarian
 						$arg['snapshot_cluster_1'] = "5y9nTY5HvdopyYZ0LDJ5YS";
-					
+						array_push($grd,"Authoritarian");
+						
 					}if(($emp_attune > 0) AND ($struc_control > 2)){
 						//helicoptor
 						$arg['snapshot_cluster_2'] = "4BrIeO90P3EZtFYPbWVPrO";
+						array_push($grd,"Helicopter");
+						
 						
 					}if(($emp_attune >= 0) AND ($struc_control < -2)){
 						//permissive
 						$arg['snapshot_cluster_3'] = "2rBbftDecoC0K708ZKbMod";
+						array_push($grd,"Permissive");
+						
 					}if((( -2 <= $emp_attune) AND ($emp_attune <= 2)) AND ((-2 <= $struc_control ) AND ($struc_control <= 2) )){
 						//average 
 						$arg['snapshot_cluster_4'] = "1OYviLzisEjJPSps5oN1xn";
+						array_push($grd,"Average");
 						
 					}
 					if(( $emp_attune >= 2) AND  ((-2 <= $struc_control ) AND ($struc_control <= 2) )){
 						//secure
 						$arg['snapshot_cluster_5'] = "7ahdG77Z26novrxHxGIQ8N";
+						array_push($grd,"Secure");
+						
 						
 					}if((( $emp_attune < -2) AND ($struc_control < 0) ) OR ((($emp_attune < 0)AND($emp_attune > -2)) AND ($struc_control < -2))){
-						  //neglect	
+						  //Undersupported	
 							$arg['snapshot_cluster_6'] = "7G2lqT04XKuaFNBaNEQ6C6";
+							array_push($grd,"Undersupported");
+							
 						}
 			//code ends here
 			if($selfRegulation >= 4){
@@ -323,25 +334,74 @@ class QuizController extends Controller
 			$userquiz->results = json_encode($arg);
 			$userquiz->response = json_encode($arg);
 			$userquiz->save();
+			
+			$this->SendSignupMail($email,$fname,$lname,$grd);
         return response()->json($arg);
     }
      
-    // public function mail_test(){
+    //update mailchimp record on the basis of results
+    
+    public function SendSignupMail( $email,$fname,$lname,$grade)
+    {
+        
+        $MailChimp = Newsletter::getApi();
+         
+        $return=Newsletter::getMember($email,'list3');
+        
+        if ($return['status'] !='404') {
+
+            foreach ($return['tags'] as $tag) {
+                $tag_num=$tag['name'];
+                if(!is_numeric($tag_num))
+                {
+				if(in_array($tag_num,$grade,true)){
+						$old_tags[]=[
+						'name'=>$tag_num,
+						'status' => 'inactive'
+						];
+					
+					}
+              }
+            }
+            $subscriber_hash=md5(strtolower($email));
+       
+            $tag_url="lists/d2ae77bf0e/members/$subscriber_hash/tags";
+           if(!empty($old_tags)){
+            
+            
+            $remove_tags=['tags'=>$old_tags];
+            
+            $remove=$MailChimp->post($tag_url,$remove_tags);
+           }
+    
+           foreach ($grade as $gd) {
+            $new_tags[]=[
+            'name'=>$gd,
+            'status' => 'active'
+            ];
+          }
+    
+            $add_tags=['tags'=>$new_tags];
+            
+            $add=$MailChimp->post($tag_url,$add_tags);
+    
+           
+            Newsletter::subscribeOrUpdate($email, ['FNAME'=>$fname, 'LNAME'=>$lname], 'list3');
+         
+    
 
 
-    //     $manage_tem= Managetemp::find(4);
-    //     $mail_subject= $manage_tem['mail_subject'];
-    //     $body=$manage_tem['mail_desc'];
-    //     $to_email = 'ajay.kumar@sourcesoftsolutions.com';
-    //     $to_name = 'Ajay kumar';
-    //     $data = ['name'=>'Ajay', 'body' => $body];
 
-    //     Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email, $mail_subject) {
-    //     $message->to($to_email, $to_name)
-    //     ->subject($mail_subject);
-    //     $message->from('ajay.sourcesoft@gmail.com','Test Mail');
-    //     });
-    // }
+
+        }else{
+            $argd = Newsletter::subscribeOrUpdate($email, ['FNAME'=>$fname, 'LNAME'=>$lname], 'list3' , ['tags' => $grade]);
+			print_r($argd);
+        }
+      
+
+
+
+    }
 
 
     

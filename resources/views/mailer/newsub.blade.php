@@ -45,11 +45,11 @@
           	<p style="margin:0px; padding:0px; color:#1c75bc;">{{ $entrys->emailText->getContent()[2]->getContent()[0]->getValue() }}</p>
           </td>
         </tr>
-        <tr>
+        
         <tr><td>&nbsp;</td></tr>
-      
+      <tr>
           <td style="text-align:center;">
-            <img src="{{ $entrys->media[0]->getFile()->getUrl()}}">
+            <img src="https:{{ $entrys->media[0]->getFile()->getUrl()}}">
           </td>
         </tr>
 

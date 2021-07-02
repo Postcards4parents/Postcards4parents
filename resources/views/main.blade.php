@@ -204,7 +204,7 @@
           </div>          
         </li>
       </ul>
-      <a href="#" class="link2">Sign up</a>
+      <a href="{{url('register')}}" class="link2">Sign up</a>
   </div>
 </section>
 <!-- Recent Postcards -->

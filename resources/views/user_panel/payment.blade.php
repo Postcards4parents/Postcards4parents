@@ -30,10 +30,13 @@ if ( !empty( $banner_media ) ) {
 
 <section class="loginPage">
   <div class="container">
+    <h3>Join parents across the country who are getting the tools to increase family joy & thriving.</h3>
+    <h5>Next, enter your payment info.</h5>
+    <p>Why now? Your trial will convert to a subscription after 30 days. Cancel any time before that.</p>
     <div class="row justify-content-center d-flex" id="secsecond">
       <div class="col-lg-7">
         <nav>
-          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"> <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><img src="http://148.76.75.204/postcards/public/site/images/card.jpg"></a> <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><img src="http://148.76.75.204/postcards/public/site/images/paypal.jpg"></a> </div>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"> <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><img src="{{asset('site/images/card.jpg')}}"></a> <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><img src="{{asset('site/images/paypal.jpg')}}"></a> </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
 			
@@ -47,21 +50,23 @@ if ( !empty( $banner_media ) ) {
 					{!! implode('', $errors->all('<li><span class="text-danger">:message</span></li>')) !!}
 					</ul>
 				@endif
-				<div class="col-md-12"><div class="form-group"><h3>Free 30 day trial - pay $o.oo now</h3></div></div>
+		  	<div class="col-md-12"><div class="form-group"><h5>Use code "P4P30FREE" to get Free 30 days trial</h5></div></div>
         <div class="col-md-12">
                   <div class="form-group">
-                    <input name="coupon" class="form-control"  type = "text" maxlength = "16" placeholder="Coupon Code">
+                    <input name="coupon" class="form-control"  type = "text" maxlength = "16" placeholder="Coupon Code" id="coupon">
 					 <div class="brdBtm">&nbsp;</div> 
+           <span class="text-danger" id="invalid" style="display:none">Invalid Coupon code</span>
                   </div>
                 </div>
 				<div class="col-md-12">
                   <div class="form-group">
-                    <select name="offer_name" class="form-control">
+                    <select name="offer_name" class="form-control" id="offer">
                         @foreach($arg as $args)
                           <option value="{{$args->plan_id}}">{{$args->plan_name}}</option>
                         @endforeach
                     </select>
 					 <div class="brdBtm">&nbsp;</div> 
+           
                   </div>
                 </div>
 				
@@ -170,19 +175,7 @@ if ( !empty( $banner_media ) ) {
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 			  <div class="row">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="MFMZRRVJ4MNG4">
-<table>
-<tr><td><input type="hidden" name="on0" value=""></td></tr><tr><td><select name="os0">
-	<option value="option 1">option 1 : $10.00 USD - yearly</option>
-	<option value="Option 2">Option 2 : $5.00 USD - monthly</option>
-</select> </td></tr>
-</table>
-<input type="hidden" name="currency_code" value="USD">
-<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+        <div class="col-md-12" id="paypal-button-container-P-5HB944653H3709631MCIXMDY"></div>
 
 
               </div>
@@ -241,7 +234,8 @@ function customRadio(radioName){
   
 
 
-<script src="https://www.paypal.com/sdk/js?client-id=AQx3eycCyMGpuj8RaMU-HmQk-q_qxgFYiDH4oAVN8n3HAd7ENxp_-VFdF1cM_AwdY2UtDx9TC59SNWA0&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script> 
+
+<script src="https://www.paypal.com/sdk/js?client-id=AQrlM_k396ttJ2JvH_4k6a60-IEzA08FtpZfUwD7ciiSpUcvBbgfdIcqc-NE3mEfh1C5Oh5jel-va4vU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script> 
 <script>
   paypal.Buttons({
       style: {
@@ -253,12 +247,43 @@ function customRadio(radioName){
       createSubscription: function(data, actions) {
         return actions.subscription.create({
           /* Creates the subscription */
-          plan_id: 'P-9BC34117TY659012TMCEXWRY'
+          plan_id: 'P-5HB944653H3709631MCIXMDY'
         });
       },
       onApprove: function(data, actions) {
         alert(data.subscriptionID); // You can add optional success message for the subscriber here
       }
-  }).render('#paypal-button-container-P-9BC34117TY659012TMCEXWRY'); // Renders the PayPal button
+  }).render('#paypal-button-container-P-5HB944653H3709631MCIXMDY'); // Renders the PayPal button
+</script>
+<script>
+$(document).ready(function() {
+  $("#coupon").on('blur',function(){
+    var token = $("input[name=_token]").val();
+    var coupon = $(this).val();
+    if(coupon !== ''){
+        $.ajax({
+          url: '{{url("/")}}/payment/couponcheck',
+          type:'POST',
+          data:{coupon:coupon,_token:token},
+          success:function(data){
+            var obj = JSON.parse(data);
+            if(obj.success){
+              var res = obj.data;
+              var i;
+              var output = '';
+              for(i=0; i<res.length; i++){
+                output += '<option value="'+res[i].plan_id+'">'+res[i].plan_name+'</option>';
+              }
+              $("#offer").html(output);
+              $("#invalid").hide();
+            }
+            else{
+              $("#invalid").show();
+            }
+          }
+        });
+    }
+  });
+});
 </script>
 @endsection
